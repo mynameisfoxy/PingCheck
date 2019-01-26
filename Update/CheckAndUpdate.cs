@@ -29,9 +29,7 @@ namespace Update
         {
             DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(Version[])); //инициализирую сериализатор
             Version updateProgram = new Version(new App(AssemblyName.GetAssemblyName("..\\pingCheck.exe").Version.ToString(), "pingCheck.zip"), 
-                new Upd(Application.ProductVersion.ToString(), "Update.zip"));
-
-            
+                new Upd(Application.ProductVersion.ToString(), "Update.zip")); //инициализирую версии входными параметрами
 
             Version[] file = new Version[] { updateProgram }; //пихаю в массив
             using (FileStream fs = new FileStream("settings.json", FileMode.Create)) //запись в файл

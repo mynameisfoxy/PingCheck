@@ -142,7 +142,6 @@ namespace pingCheck
             CheckAndUpdate chk = new CheckAndUpdate();
             chk.BeginCheckProcess();
 
-            //Path.GetTempPath();
             //===============================================================================================================
         }
 
