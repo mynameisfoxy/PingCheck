@@ -126,5 +126,11 @@
   <ItemGroup>
     <Content Include="favicon.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Update\Update.csproj">
+      <Project>{8d965625-acdf-499d-9c90-899cf1d6ef02}</Project>
+      <Name>Update</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

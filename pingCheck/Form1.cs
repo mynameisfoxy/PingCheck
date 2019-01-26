@@ -8,6 +8,8 @@ using System.Runtime.Serialization.Json;
 using System.IO;
 using System.Media;
 using System.Text.RegularExpressions;
+using System.Net;
+using Update;
 
 
 namespace pingCheck
@@ -18,7 +20,7 @@ namespace pingCheck
         //Применяем using System.Runtime.InteropServices; для вызова функций из C++ библиотек
         [System.Runtime.InteropServices.DllImport("user32.dll", CharSet = CharSet.Auto)]
         extern static bool DestroyIcon(IntPtr handle);
-
+        
 
         bool state = false;
         bool window = true;
@@ -134,6 +136,14 @@ namespace pingCheck
                        numericUpDown1.Value = setts[0].timer;
                 }
             }
+
+            //===============================================================================================================
+
+            CheckAndUpdate chk = new CheckAndUpdate();
+            chk.BeginCheckProcess();
+
+            //Path.GetTempPath();
+            //===============================================================================================================
         }
 
         private void notifyIcon1_DoubleClick(object sender, EventArgs e)
