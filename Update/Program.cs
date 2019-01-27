@@ -16,7 +16,10 @@ namespace Update
         {
             bool versParam = false;
             CheckAndUpdate chk = new CheckAndUpdate();
+            chk.BeginCheckProcess();
             chk.InitializeSettingsFile();
+            chk.InitializeDownload();
+            chk.InitializeUnzip();
             if (param.Length > 0)
             {
                 for (int i = 0; i < param.Length; i++)

@@ -7,7 +7,7 @@ using System.IO;
 namespace Update
 {
     [DataContract]
-    public class Version
+    public class Vrsn
     {
 
         [DataMember]
@@ -15,7 +15,7 @@ namespace Update
         [DataMember]
         public Upd Upd { get; set; }
 
-        public Version (App mainApp, Upd updPrg)
+        public Vrsn (App mainApp, Upd updPrg)
         {
             App = mainApp;
             Upd = updPrg;
