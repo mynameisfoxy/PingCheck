@@ -140,7 +140,13 @@ namespace pingCheck
             //===============================================================================================================
 
             CheckAndUpdate chk = new CheckAndUpdate();
-            chk.BeginCheckProcess();
+            chk.SetTempPath(Path.GetTempPath() + "PingCheck");
+            chk.SetUpdatePath(Path.GetTempPath() + "PingCheck\\Update");
+            chk.SetBackupPath(Path.GetTempPath() + "PingCheck\\Backup");
+            //chk.SetAppFileName("pingCheck");
+            //chk.SetUpdateFileName("Update");
+            chk.SetUpdateUrl("https://raw.githubusercontent.com/mynameisfoxy/PingCheckUpdate/master/");
+            chk.RunUpdate(UpdateType.Update);
 
             //===============================================================================================================
         }

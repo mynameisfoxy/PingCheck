@@ -15,6 +15,10 @@ namespace Update
         [DataMember]
         public Upd Upd { get; set; }
 
+        public Vrsn() {
+            App = new App(null,null);
+            Upd = new Upd(null,null);
+        }
         public Vrsn (App mainApp, Upd updPrg)
         {
             App = mainApp;

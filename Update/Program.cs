@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Windows.Forms;
 
 namespace Update
@@ -14,12 +15,19 @@ namespace Update
         [STAThread]
         static void Main(string[] param)
         {
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
             bool versParam = false;
             CheckAndUpdate chk = new CheckAndUpdate();
-            chk.BeginCheckProcess();
-            chk.InitializeSettingsFile();
-            chk.InitializeDownload();
-            chk.InitializeUnzip();
+            chk.SetTempPath(Path.GetTempPath() + "PingCheck");
+            chk.SetUpdatePath(Path.GetTempPath() + "PingCheck\\Update");
+            chk.SetBackupPath(Path.GetTempPath() + "PingCheck\\Backup");
+            //chk.SetAppFileName("pingCheck");
+            //chk.SetUpdateFileName("Update");
+            chk.SetUpdateUrl("https://raw.githubusercontent.com/mynameisfoxy/PingCheckUpdate/master/");
+
+            chk.RunUpdate(UpdateType.Application);
+            
             if (param.Length > 0)
             {
                 for (int i = 0; i < param.Length; i++)
@@ -37,8 +45,7 @@ namespace Update
             if (param.Length < 1 && !versParam)
             {
                 FreeConsole();
-                Application.EnableVisualStyles();
-                Application.SetCompatibleTextRenderingDefault(false);
+                
                 Application.Run(new Form1());
             }
             

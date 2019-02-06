@@ -15,6 +15,7 @@ namespace Update
         public Form1()
         {
             InitializeComponent();
+            this.Visible = false;
         }
     }
 }
