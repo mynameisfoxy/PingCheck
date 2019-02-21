@@ -32,13 +32,13 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.ShowProgramFromTray = new System.Windows.Forms.ToolStripMenuItem();
+            this.UpdateCase = new System.Windows.Forms.ToolStripMenuItem();
+            this.ExitButtonFromTray = new System.Windows.Forms.ToolStripMenuItem();
             this.Exit = new System.ComponentModel.BackgroundWorker();
-            this.button2 = new System.Windows.Forms.Button();
+            this.GoOrStopButton = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.button3 = new System.Windows.Forms.Button();
+            this.MinimizeButton = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -47,16 +47,16 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.CheckErrorSound = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.CheckNormalizaSound = new System.Windows.Forms.CheckBox();
+            this.CheckSoundsOn = new System.Windows.Forms.CheckBox();
+            this.AdditionalButton = new System.Windows.Forms.Button();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.checkBox4 = new System.Windows.Forms.CheckBox();
+            this.CheckLog = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
@@ -73,64 +73,64 @@
             this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
             this.notifyIcon1.Text = "PingChecker";
             this.notifyIcon1.Visible = true;
-            this.notifyIcon1.DoubleClick += new System.EventHandler(this.notifyIcon1_DoubleClick);
+            this.notifyIcon1.DoubleClick += new System.EventHandler(this.NotifyIcon1_DoubleClick);
             // 
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem1,
-            this.toolStripMenuItem2,
-            this.toolStripMenuItem3});
+            this.ShowProgramFromTray,
+            this.UpdateCase,
+            this.ExitButtonFromTray});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(122, 70);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 92);
             // 
-            // toolStripMenuItem1
+            // ShowProgramFromTray
             // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(121, 22);
-            this.toolStripMenuItem1.Text = "Пуск";
-            this.toolStripMenuItem1.Visible = false;
-            this.toolStripMenuItem1.Click += new System.EventHandler(this.button2_Click);
+            this.ShowProgramFromTray.Enabled = false;
+            this.ShowProgramFromTray.Name = "ShowProgramFromTray";
+            this.ShowProgramFromTray.Size = new System.Drawing.Size(180, 22);
+            this.ShowProgramFromTray.Text = "Открыть";
+            this.ShowProgramFromTray.Click += new System.EventHandler(this.ShowProgramFromTray_Clicked);
             // 
-            // toolStripMenuItem2
+            // UpdateCase
             // 
-            this.toolStripMenuItem2.Enabled = false;
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(121, 22);
-            this.toolStripMenuItem2.Text = "Открыть";
-            this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
+            this.UpdateCase.Name = "UpdateCase";
+            this.UpdateCase.Size = new System.Drawing.Size(180, 22);
+            this.UpdateCase.Text = "Обновить!";
+            this.UpdateCase.Visible = false;
+            this.UpdateCase.Click += new System.EventHandler(this.NotifyIcon1_BaloonClicked);
             // 
-            // toolStripMenuItem3
+            // ExitButtonFromTray
             // 
-            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(121, 22);
-            this.toolStripMenuItem3.Text = "Выход";
-            this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
+            this.ExitButtonFromTray.Name = "ExitButtonFromTray";
+            this.ExitButtonFromTray.Size = new System.Drawing.Size(180, 22);
+            this.ExitButtonFromTray.Text = "Выход";
+            this.ExitButtonFromTray.Click += new System.EventHandler(this.ExitButtonFromTray_Clicked);
             // 
-            // button2
+            // GoOrStopButton
             // 
-            this.button2.Location = new System.Drawing.Point(225, 10);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(97, 23);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "Запуск";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.GoOrStopButton.Location = new System.Drawing.Point(225, 10);
+            this.GoOrStopButton.Name = "GoOrStopButton";
+            this.GoOrStopButton.Size = new System.Drawing.Size(97, 23);
+            this.GoOrStopButton.TabIndex = 1;
+            this.GoOrStopButton.Text = "Запуск";
+            this.GoOrStopButton.UseVisualStyleBackColor = true;
+            this.GoOrStopButton.Click += new System.EventHandler(this.RunOrStop);
             // 
             // timer1
             // 
             this.timer1.Interval = 5000;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
             // 
-            // button3
+            // MinimizeButton
             // 
-            this.button3.Location = new System.Drawing.Point(225, 36);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(97, 23);
-            this.button3.TabIndex = 2;
-            this.button3.Text = "Свернуть";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.MinimizeButton.Location = new System.Drawing.Point(225, 36);
+            this.MinimizeButton.Name = "MinimizeButton";
+            this.MinimizeButton.Size = new System.Drawing.Size(97, 23);
+            this.MinimizeButton.TabIndex = 2;
+            this.MinimizeButton.Text = "Свернуть";
+            this.MinimizeButton.UseVisualStyleBackColor = true;
+            this.MinimizeButton.Click += new System.EventHandler(this.MinimizeButtonClick);
             // 
             // textBox1
             // 
@@ -187,11 +187,11 @@
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.numericUpDown3);
-            this.groupBox1.Controls.Add(this.checkBox2);
+            this.groupBox1.Controls.Add(this.CheckErrorSound);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.numericUpDown2);
-            this.groupBox1.Controls.Add(this.checkBox3);
+            this.groupBox1.Controls.Add(this.CheckNormalizaSound);
             this.groupBox1.Enabled = false;
             this.groupBox1.Location = new System.Drawing.Point(12, 117);
             this.groupBox1.Name = "groupBox1";
@@ -240,15 +240,15 @@
             0,
             0});
             // 
-            // checkBox2
+            // CheckErrorSound
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(9, 90);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(150, 17);
-            this.checkBox2.TabIndex = 15;
-            this.checkBox2.Text = "Уведомлять об ошибках";
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.CheckErrorSound.AutoSize = true;
+            this.CheckErrorSound.Location = new System.Drawing.Point(9, 90);
+            this.CheckErrorSound.Name = "CheckErrorSound";
+            this.CheckErrorSound.Size = new System.Drawing.Size(150, 17);
+            this.CheckErrorSound.TabIndex = 15;
+            this.CheckErrorSound.Text = "Уведомлять об ошибках";
+            this.CheckErrorSound.UseVisualStyleBackColor = true;
             // 
             // label5
             // 
@@ -290,36 +290,36 @@
             0,
             0});
             // 
-            // checkBox3
+            // CheckNormalizaSound
             // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(9, 67);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(235, 17);
-            this.checkBox3.TabIndex = 10;
-            this.checkBox3.Text = "Уведомлять о стабилизации соединения";
-            this.checkBox3.UseVisualStyleBackColor = true;
+            this.CheckNormalizaSound.AutoSize = true;
+            this.CheckNormalizaSound.Location = new System.Drawing.Point(9, 67);
+            this.CheckNormalizaSound.Name = "CheckNormalizaSound";
+            this.CheckNormalizaSound.Size = new System.Drawing.Size(235, 17);
+            this.CheckNormalizaSound.TabIndex = 10;
+            this.CheckNormalizaSound.Text = "Уведомлять о стабилизации соединения";
+            this.CheckNormalizaSound.UseVisualStyleBackColor = true;
             // 
-            // checkBox1
+            // CheckSoundsOn
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(12, 94);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(197, 17);
-            this.checkBox1.TabIndex = 8;
-            this.checkBox1.Text = "Включить звуковые уведомления";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            this.CheckSoundsOn.AutoSize = true;
+            this.CheckSoundsOn.Location = new System.Drawing.Point(12, 94);
+            this.CheckSoundsOn.Name = "CheckSoundsOn";
+            this.CheckSoundsOn.Size = new System.Drawing.Size(197, 17);
+            this.CheckSoundsOn.TabIndex = 8;
+            this.CheckSoundsOn.Text = "Включить звуковые уведомления";
+            this.CheckSoundsOn.UseVisualStyleBackColor = true;
+            this.CheckSoundsOn.CheckedChanged += new System.EventHandler(this.CheckSoundsOn_CheckedChanged);
             // 
-            // button1
+            // AdditionalButton
             // 
-            this.button1.Location = new System.Drawing.Point(12, 65);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(309, 23);
-            this.button1.TabIndex = 9;
-            this.button1.Text = "Дополнительно";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            this.AdditionalButton.Location = new System.Drawing.Point(12, 65);
+            this.AdditionalButton.Name = "AdditionalButton";
+            this.AdditionalButton.Size = new System.Drawing.Size(309, 23);
+            this.AdditionalButton.TabIndex = 9;
+            this.AdditionalButton.Text = "Дополнительно";
+            this.AdditionalButton.UseVisualStyleBackColor = true;
+            this.AdditionalButton.Click += new System.EventHandler(this.AdditionalButtonClick);
             // 
             // richTextBox1
             // 
@@ -349,16 +349,16 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Лог";
             // 
-            // checkBox4
+            // CheckLog
             // 
-            this.checkBox4.AutoSize = true;
-            this.checkBox4.Location = new System.Drawing.Point(12, 249);
-            this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(91, 17);
-            this.checkBox4.TabIndex = 12;
-            this.checkBox4.Text = "Вести лог -->";
-            this.checkBox4.UseVisualStyleBackColor = true;
-            this.checkBox4.CheckedChanged += new System.EventHandler(this.checkBox4_CheckedChanged);
+            this.CheckLog.AutoSize = true;
+            this.CheckLog.Location = new System.Drawing.Point(12, 249);
+            this.CheckLog.Name = "CheckLog";
+            this.CheckLog.Size = new System.Drawing.Size(110, 17);
+            this.CheckLog.TabIndex = 12;
+            this.CheckLog.Text = "Показать лог -->";
+            this.CheckLog.UseVisualStyleBackColor = true;
+            this.CheckLog.CheckedChanged += new System.EventHandler(this.CheckLog_CheckedChanged);
             // 
             // label3
             // 
@@ -375,17 +375,17 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(564, 275);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.checkBox4);
+            this.Controls.Add(this.CheckLog);
             this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.AdditionalButton);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.numericUpDown1);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.CheckSoundsOn);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.MinimizeButton);
+            this.Controls.Add(this.GoOrStopButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -410,28 +410,28 @@
 
         private System.Windows.Forms.NotifyIcon notifyIcon1;
         private System.ComponentModel.BackgroundWorker Exit;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button GoOrStopButton;
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button MinimizeButton;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem UpdateCase;
+        private System.Windows.Forms.ToolStripMenuItem ShowProgramFromTray;
+        private System.Windows.Forms.ToolStripMenuItem ExitButtonFromTray;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.CheckBox CheckSoundsOn;
+        private System.Windows.Forms.Button AdditionalButton;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.NumericUpDown numericUpDown2;
-        private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.CheckBox CheckNormalizaSound;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.CheckBox CheckErrorSound;
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.CheckBox checkBox4;
+        private System.Windows.Forms.CheckBox CheckLog;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.NumericUpDown numericUpDown3;

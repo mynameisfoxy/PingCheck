@@ -1,10 +1,7 @@
-﻿using System.Reflection;
-using System.Runtime.Serialization;
-using System.Windows.Forms;
-using System.IO;
+﻿using System.Runtime.Serialization;
 
 
-namespace Update
+namespace pingCheck
 {
     [DataContract]
     public class Vrsn

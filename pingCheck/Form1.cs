@@ -8,8 +8,8 @@ using System.Runtime.Serialization.Json;
 using System.IO;
 using System.Media;
 using System.Text.RegularExpressions;
-using System.Net;
-using Update;
+using UpdaterClass;
+
 
 
 namespace pingCheck
@@ -43,12 +43,14 @@ namespace pingCheck
         PingOptions options = new PingOptions();
         SoundPlayer pingDownSound = new SoundPlayer(stream: Properties.Resources.pingdown);
         SoundPlayer pingUpSound = new SoundPlayer(stream: Properties.Resources.pingup1);
+        CheckAndUpdate chk = new CheckAndUpdate();
 
 
         public Form1(string[] param)
         {
             InitializeComponent();
-            //this.ShowInTaskbar = false;
+            notifyIcon1.BalloonTipClicked += new EventHandler(NotifyIcon1_BaloonClicked);
+            notifyIcon1.BalloonTipClosed += new EventHandler(NotifyIcon1_BaloonClosed);
             hIcon = IntPtr.Zero;
             this.Height = 132;
             this.Width = 350;
@@ -94,8 +96,8 @@ namespace pingCheck
                 window = false;
                 timer1.Enabled = true;
                 state = true;
-                button2.Text = "Стоп";
-                toolStripMenuItem1.Text = "Стоп";
+                GoOrStopButton.Text = "Стоп";
+                UpdateCase.Text = "Стоп";
                 textBox1.Enabled = false;
                 numericUpDown1.Enabled = false;
                 timer1.Interval = int.Parse(numericUpDown1.Value.ToString()) * 1000;
@@ -139,32 +141,63 @@ namespace pingCheck
 
             //===============================================================================================================
 
-            CheckAndUpdate chk = new CheckAndUpdate();
             chk.SetTempPath(Path.GetTempPath() + "PingCheck");
-            chk.SetUpdatePath(Path.GetTempPath() + "PingCheck\\Update");
-            chk.SetBackupPath(Path.GetTempPath() + "PingCheck\\Backup");
-            //chk.SetAppFileName("pingCheck");
-            //chk.SetUpdateFileName("Update");
+            chk.SetAppFileName("pingCheck");
+            chk.SetUpdateFileName("Update");
             chk.SetUpdateUrl("https://raw.githubusercontent.com/mynameisfoxy/PingCheckUpdate/master/");
             chk.RunUpdate(UpdateType.Update);
+            if (!chk.IsThisVersionSkipped())
+            {
+                if (chk.IfUpdateExist())
+                {
+                    notifyIcon1.ShowBalloonTip(1000, "Обновление!", "Обнаружена новая версия приложения!", ToolTipIcon.Info);
+                }
+            }
+            if(chk.IfUpdateExist())
+            {
+                UpdateCase.Visible = true;
+            }
 
             //===============================================================================================================
         }
 
-        private void notifyIcon1_DoubleClick(object sender, EventArgs e)
+        private void NotifyIcon1_BaloonClicked(object sender, EventArgs e)
+        {
+            Misc.UpdateConfirmer conf = new Misc.UpdateConfirmer();
+            switch (conf.ShowDialog())
+            {
+                case DialogResult.Yes:
+                    chk.Restart();
+                    break;
+                case DialogResult.No:
+
+                    break;
+                case DialogResult.Ignore:
+                    //Properties.Settings.Default.VersionSkip = true;
+                    //Properties.Settings.Default.Save();
+                    chk.SetThisVersionSkipped();
+                    
+                    break;
+                default:
+
+                    break;
+            }
+        }
+
+        private void NotifyIcon1_BaloonClosed(object sender, EventArgs e)
+        {
+            //MessageBox.Show("закрылось");
+        }
+
+        private void NotifyIcon1_DoubleClick(object sender, EventArgs e)
         {
             this.Show();
             this.Activate();
             window = true;
-            toolStripMenuItem2.Enabled = false;
+            ShowProgramFromTray.Enabled = false;
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            CreateTextIcon("89");
-        }
-
-        public void CreateTextIcon(string number)
+        private void CreateTextIcon(string number)
         {
             Graphics g = System.Drawing.Graphics.FromImage(bitmapText);
             g.Clear(Color.Transparent);
@@ -193,7 +226,7 @@ namespace pingCheck
 
         
 
-        private void button2_Click(object sender, EventArgs e)
+        private void RunOrStop(object sender, EventArgs e)
         {
             if (!state)
             {
@@ -205,14 +238,13 @@ namespace pingCheck
                     
                     timer1.Interval = int.Parse(numericUpDown1.Value.ToString()) * 1000;
                     timer1.Enabled = true;
-                    button2.Text = "Стоп";
-                    toolStripMenuItem1.Text = "Стоп";
+                    GoOrStopButton.Text = "Стоп";
                     state = true;
                     textBox1.Enabled = false;
                     numericUpDown1.Enabled = false;
-                    checkBox1.Enabled = false;
+                    CheckSoundsOn.Enabled = false;
                     groupBox1.Enabled = false;
-                    checkBox4.Enabled = false;
+                    CheckLog.Enabled = false;
 
                     if (!noconf)
                     {
@@ -228,7 +260,7 @@ namespace pingCheck
                     }
                     //this.Visible = false;
                     //window = false;
-                    toolStripMenuItem2.Enabled = true;
+                    ShowProgramFromTray.Enabled = true;
                     CheckPing(textBox1.Text);
                 } else
                 {
@@ -244,19 +276,18 @@ namespace pingCheck
             else
             {
                 timer1.Enabled = false;
-                button2.Text = "Запуск";
-                toolStripMenuItem1.Text = "Запуск";
+                GoOrStopButton.Text = "Запуск";
                 textBox1.Enabled = true;
                 numericUpDown1.Enabled = true;
-                checkBox1.Enabled = true;
+                CheckSoundsOn.Enabled = true;
                 groupBox1.Enabled = true;
-                checkBox4.Enabled = true;
+                CheckLog.Enabled = true;
                 state = false;
                 
                 richTextBox1.AppendText("Остановлено \n");
             }
         }
-        public void CheckPing(string adress)
+        private void CheckPing(string adress)
         {
             // Use the default Ttl value which is 128,
             // but change the fragmentation behavior.
@@ -276,7 +307,7 @@ namespace pingCheck
                     richTextBox1.Text = richTextBox1.Text.Remove(0, richTextBox1.Lines[0].Length+1);
                     richTextBox1.ScrollToCaret();
                 }
-                if (checkBox1.Checked)
+                if (CheckSoundsOn.Checked)
                     if (reply.RoundtripTime > numericUpDown2.Value) //проверка на превышение заданного порога
                     {
                         if (!badConnect)
@@ -303,7 +334,7 @@ namespace pingCheck
                     {
                         if (badConnect)
                         {
-                            if(checkBox3.Checked)
+                            if(CheckNormalizaSound.Checked)
                             pingDownSound.Play();
                             pingDownSpring = 0;
                             badConnect = false;
@@ -320,7 +351,7 @@ namespace pingCheck
                 richTextBox1.AppendText(System.DateTime.Now.TimeOfDay.Hours + ":" + System.DateTime.Now.TimeOfDay.Minutes + ":" +
                     System.DateTime.Now.TimeOfDay.Seconds + "  " + reply.Status.ToString()+ Environment.NewLine);
                 
-                if (checkBox2.Checked && checkBox1.Checked)
+                if (CheckErrorSound.Checked && CheckSoundsOn.Checked)
                 pingUpSound.Play();
                 //Uri.IsWellFormedUriString
             }
@@ -328,30 +359,30 @@ namespace pingCheck
 
         //private bool 
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void Timer1_Tick(object sender, EventArgs e)
         {
             CheckPing(textBox1.Text);
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void MinimizeButtonClick(object sender, EventArgs e)
         {
             this.Hide();
             window = false;
-            toolStripMenuItem2.Enabled = true;
+            ShowProgramFromTray.Enabled = true;
         }
 
-        private void toolStripMenuItem3_Click(object sender, EventArgs e)
+        private void ExitButtonFromTray_Clicked(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        private void ShowProgramFromTray_Clicked(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Normal;
             this.Activate();
             this.Visible = true;
             window = true;
-            toolStripMenuItem2.Enabled = false;
+            ShowProgramFromTray.Enabled = false;
         }
 
         private void Form1_Shown(object sender, EventArgs e)
@@ -359,21 +390,21 @@ namespace pingCheck
             if (!window)
             {
                 this.Hide();
-                toolStripMenuItem2.Enabled = true;
+                ShowProgramFromTray.Enabled = true;
             }
             else
             {
                 this.Show();
-                toolStripMenuItem2.Enabled = false;
+                ShowProgramFromTray.Enabled = false;
             }
         }
 
-        private void button1_Click_1(object sender, EventArgs e)
+        private void AdditionalButtonClick(object sender, EventArgs e)
         {
             if (!advanced)
             {
                 this.Height = 314;
-                if (checkBox4.Checked)
+                if (CheckLog.Checked)
                 this.Width = 580;
                 advanced = true;
             } else
@@ -384,15 +415,15 @@ namespace pingCheck
             }
         }
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        private void CheckSoundsOn_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBox1.Checked)
+            if (CheckSoundsOn.Checked)
                 groupBox1.Enabled = true;
             else
                 groupBox1.Enabled = false;
         }
 
-        private void checkBox4_CheckedChanged(object sender, EventArgs e)
+        private void CheckLog_CheckedChanged(object sender, EventArgs e)
         {
             if (!log)
             {
@@ -413,7 +444,7 @@ namespace pingCheck
                 window = false;
                 this.WindowState = FormWindowState.Normal;
                 this.Hide();
-                toolStripMenuItem2.Enabled = true;
+                ShowProgramFromTray.Enabled = true;
             }
         }
     }

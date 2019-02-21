@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Windows.Forms;
+using UpdaterClass;
 
 namespace Update
 {
@@ -20,10 +21,8 @@ namespace Update
             bool versParam = false;
             CheckAndUpdate chk = new CheckAndUpdate();
             chk.SetTempPath(Path.GetTempPath() + "PingCheck");
-            chk.SetUpdatePath(Path.GetTempPath() + "PingCheck\\Update");
-            chk.SetBackupPath(Path.GetTempPath() + "PingCheck\\Backup");
-            //chk.SetAppFileName("pingCheck");
-            //chk.SetUpdateFileName("Update");
+            chk.SetAppFileName("pingCheck");
+            chk.SetUpdateFileName("Update");
             chk.SetUpdateUrl("https://raw.githubusercontent.com/mynameisfoxy/PingCheckUpdate/master/");
 
             chk.RunUpdate(UpdateType.Application);
@@ -37,7 +36,7 @@ namespace Update
                         case ("/version"):
                             Console.WriteLine(Application.ProductName + " [" + Application.ProductVersion.ToString() + "]");
                             versParam = true;
-                            FreeConsole();
+                            //FreeConsole();
                             break;
                     }
                 }
