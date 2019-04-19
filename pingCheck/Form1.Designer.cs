@@ -58,6 +58,7 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.CheckLog = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.Overlay = new System.Windows.Forms.Button();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -82,20 +83,20 @@
             this.UpdateCase,
             this.ExitButtonFromTray});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 92);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(132, 70);
             // 
             // ShowProgramFromTray
             // 
             this.ShowProgramFromTray.Enabled = false;
             this.ShowProgramFromTray.Name = "ShowProgramFromTray";
-            this.ShowProgramFromTray.Size = new System.Drawing.Size(180, 22);
+            this.ShowProgramFromTray.Size = new System.Drawing.Size(131, 22);
             this.ShowProgramFromTray.Text = "Открыть";
             this.ShowProgramFromTray.Click += new System.EventHandler(this.ShowProgramFromTray_Clicked);
             // 
             // UpdateCase
             // 
             this.UpdateCase.Name = "UpdateCase";
-            this.UpdateCase.Size = new System.Drawing.Size(180, 22);
+            this.UpdateCase.Size = new System.Drawing.Size(131, 22);
             this.UpdateCase.Text = "Обновить!";
             this.UpdateCase.Visible = false;
             this.UpdateCase.Click += new System.EventHandler(this.NotifyIcon1_BaloonClicked);
@@ -103,7 +104,7 @@
             // ExitButtonFromTray
             // 
             this.ExitButtonFromTray.Name = "ExitButtonFromTray";
-            this.ExitButtonFromTray.Size = new System.Drawing.Size(180, 22);
+            this.ExitButtonFromTray.Size = new System.Drawing.Size(131, 22);
             this.ExitButtonFromTray.Text = "Выход";
             this.ExitButtonFromTray.Click += new System.EventHandler(this.ExitButtonFromTray_Clicked);
             // 
@@ -313,9 +314,9 @@
             // 
             // AdditionalButton
             // 
-            this.AdditionalButton.Location = new System.Drawing.Point(12, 65);
+            this.AdditionalButton.Location = new System.Drawing.Point(15, 65);
             this.AdditionalButton.Name = "AdditionalButton";
-            this.AdditionalButton.Size = new System.Drawing.Size(309, 23);
+            this.AdditionalButton.Size = new System.Drawing.Size(204, 23);
             this.AdditionalButton.TabIndex = 9;
             this.AdditionalButton.Text = "Дополнительно";
             this.AdditionalButton.UseVisualStyleBackColor = true;
@@ -369,11 +370,22 @@
             this.label3.TabIndex = 13;
             this.label3.Text = "сек.";
             // 
+            // Overlay
+            // 
+            this.Overlay.Location = new System.Drawing.Point(225, 65);
+            this.Overlay.Name = "Overlay";
+            this.Overlay.Size = new System.Drawing.Size(96, 23);
+            this.Overlay.TabIndex = 14;
+            this.Overlay.Text = "Оверлей";
+            this.Overlay.UseVisualStyleBackColor = true;
+            this.Overlay.Click += new System.EventHandler(this.Overlay_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(564, 275);
+            this.Controls.Add(this.Overlay);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.CheckLog);
             this.Controls.Add(this.groupBox2);
@@ -436,6 +448,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.NumericUpDown numericUpDown3;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button Overlay;
     }
 }
 

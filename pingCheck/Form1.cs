@@ -44,7 +44,7 @@ namespace pingCheck
         SoundPlayer pingDownSound = new SoundPlayer(stream: Properties.Resources.pingdown);
         SoundPlayer pingUpSound = new SoundPlayer(stream: Properties.Resources.pingup1);
         CheckAndUpdate chk = new CheckAndUpdate();
-
+        Overlay over = new Overlay();
 
         public Form1(string[] param)
         {
@@ -54,6 +54,16 @@ namespace pingCheck
             hIcon = IntPtr.Zero;
             this.Height = 132;
             this.Width = 350;
+
+            
+            over.TopMost = true;
+            over.AllowTransparency = true;
+            over.BackColor = Color.AliceBlue;
+            over.TransparencyKey = over.BackColor;
+            over.FormBorderStyle = FormBorderStyle.None;
+            over.ShowInTaskbar = false;
+            over.Visible = false;
+
 
             if (param.Length > 0)
             {
@@ -341,6 +351,7 @@ namespace pingCheck
                         }
                     }
                 }
+                over.RefreshNumbers(reply.Address.ToString(), reply.RoundtripTime.ToString());
                 richTextBox1.AppendText(System.DateTime.Now.TimeOfDay.Hours + ":" + System.DateTime.Now.TimeOfDay.Minutes + ":" +
                   System.DateTime.Now.TimeOfDay.Seconds + "  " + "Ping: " + reply.RoundtripTime.ToString() + Environment.NewLine);
                 CreateTextIcon(reply.RoundtripTime.ToString());
@@ -446,6 +457,19 @@ namespace pingCheck
                 this.Hide();
                 ShowProgramFromTray.Enabled = true;
             }
+        }
+
+        private void Overlay_Click(object sender, EventArgs e)
+        {
+            if (!over.Visible)
+            {
+                over.Visible = true;
+            }
+            else
+            {
+                over.Visible = false;
+            }
+            this.Activate();
         }
     }
 }
